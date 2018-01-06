@@ -1,0 +1,245 @@
+<!-- gets header, nav bar and footer -->
+{% extends 'header.html' %}
+{% block content %}
+	<script>
+		$(document).ready(function() {
+		
+		var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+		
+		function getUrlParameter(sParam) {
+			var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+				sURLVariables = sPageURL.split('&'),
+				sParameterName,
+				i;
+
+			for (i = 0; i < sURLVariables.length; i++) {
+				sParameterName = sURLVariables[i].split('=');
+
+				if (sParameterName[0] === sParam) {
+					return sParameterName[1] === undefined ? true : sParameterName[1];
+				}
+			}
+		};
+		
+		var d = new Date();
+		var m = d.getMonth() + 1;
+		var y = d.getFullYear();
+		var now = d.getDate();
+		//gets current date 
+		
+		var month = getUrlParameter('month');
+		var year = getUrlParameter('year');
+		//gets url parameter to change 
+		
+		if(month == m && year == y){
+			for(i = 0;i < now;i++){
+				$('#calendar div:nth-of-type(' + i + ')').addClass('booked');
+			}
+			
+		}
+		
+		var d_slice = ("0" + now).slice(-2);
+		var m_slice = ("0" + month).slice(-2);
+
+		var today = year+"-"+(m_slice)+"-"+(d_slice);
+		
+		$('#arrival').val(today);
+		
+		var dateSelect;
+		
+	
+		
+		function refreshCells(){
+		
+			if(dateSelect != undefined){
+				$('#calendar div').removeClass('selected');
+				var this_val = parseInt(dateSelect.text());
+				var length_val = this_val + parseInt($('#length').val())  ;
+				
+				var this_slice = ("0" + this_val).slice(-2);
+				
+				if(!($(this).hasClass('booked'))){
+					for(i = this_val;i < length_val;i++){
+						
+						if($('#calendar div:nth-of-type(' + i + ')').hasClass('booked')){
+							//validation to prevent overlapping bookings
+							alert("There is already a booking within the specified timeframe, please make another selection.");
+							$('#calendar div').removeClass('selected');
+							$('#arrival').val("");
+							
+						}
+						else{
+							$('#calendar div:nth-of-type(' + i + ')').addClass('selected');
+						}
+					}
+				}
+					var today = year+"-"+(m_slice)+"-"+(this_slice);
+					$('#arrival').val(today);
+					
+			}
+			
+		}
+		
+		$('#calendar div').click(function(){
+			dateSelect = $(this);
+			refreshCells();
+		});
+				$('#next_month').click(function(){
+		
+			if(month==12){
+				month = 1;
+				year++;
+			}
+			else
+				month++;
+			window.location.href = 'booking?month=' + month  + '&year=' + year;
+		});
+		
+		$('#prev_month').click(function(){
+			if(year == y && month == m){
+			
+			}
+			else{
+				if(month==1){
+					month = 12;
+					year--;
+				}
+				else month--;
+				window.location.href = 'booking?month=' + month + '&year=' + year;
+			}
+				
+			
+			
+		});
+		
+		var dates = {{dates}};
+		var lengths = {{lengths}};
+		var months = {{monthList}};
+		var years = {{yearsList}};
+		//converts python lists into js arrays
+		
+		$('#calendar').children('div').each(function () {
+			var val = parseInt($(this).text())
+			for(i = 0; i < dates.length;i++){
+				if(val >= dates[i] && val <= dates[i] + lengths[i]-1 && months[i] == month && years[i] == year){
+					
+					$(this).addClass('booked');
+					
+				}
+			}
+		});
+		function changePrice(){
+			var days = $('#length').val();
+			var price;
+			//test month url parameter
+			if(month > 5 && month < 9){
+				//peak summer price
+				price = days*90;
+			}
+			else if(month < 3 || month > 10){
+				//lowest price in winter months
+				price = days*40;
+			}
+			else{
+				//base price for rest of year
+				price = days*60;
+			}
+			if(days == 0)
+				$('#price').html('Select Date and Length of stay to see price');
+			else
+				$('#price').html('Price: <b>£' + price + '</b>');
+		}
+		$('#length').change(function(){
+			//when length of stay box is changed
+			changePrice();
+			refreshCells($(this));
+		})
+		});
+			
+		
+	</script>
+	<h1>{{title}}</h1>
+	<div id="calendar_header">
+		<h2>{{cal_title}}</h2>
+		<button id="prev_month"><</button>
+		<button id="next_month">></button>
+	</div>
+	<div id="calendar">
+	
+	{% for i in range(1,days+1) %}
+			
+			<div class="trigger">
+			{{i}}
+			</div>
+		
+	{% endfor %}
+	</div>
+	<form id="booking" name="bookingForm" action="makeBooking" method="POST">
+		<table>
+			<tr>
+				<td><label>Length of stay</label></td>
+				<td>
+					<select id="length" selected="7" name="length" required>
+					<option value="0">Select Duration</option>
+					<option value="3">3 days</option>
+					<option value="5">5 days</option>
+					<option value="7">7 days</option>
+					<option value="10">10 days</option>
+					<option value="14">14 days</option>
+				</select>
+				</td>
+			</tr>
+			<tr>
+				<td><label>Arrival Date</label></td>
+				<td><input id="arrival" type="date" name="arrival" min="" required readonly></td>
+			</tr>
+				<td><label>Name</label></td>
+				<td>
+					<input class="name" type="text" placeholder="First Name" name="firstname" value="" required>
+					<input class="name" type="text" placeholder ="Last Name" name="lastname" value="" required>
+				</td>
+			</tr>
+			<tr>
+				<td><label>E-mail</label></td>
+				<td><input class="email" type="email" name="email" value="" required></td>
+			</tr>
+			<tr>
+				<td><label>Phone Number</label></td>
+				<td><input type="tel" name="number" value="" ></td>
+			</tr>
+			<tr>
+				<td><label>Adults</label></td>
+				<td>	
+					<select name="adultsNum" required>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><label>Children</label></td>
+				<td>
+				<select name="childrenNum" required>
+					<option value="0">0</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+				</select>
+			</td>
+			</tr>
+		</table>
+		<p id="price">Select Date and Length of stay to see price</p>
+		<input type="reset" value="Reset">
+		<input type="submit" value="Submit">
+	</form>
+	
+	<h2 id="month_title"></h2>
+	
+
+{% endblock %}
+

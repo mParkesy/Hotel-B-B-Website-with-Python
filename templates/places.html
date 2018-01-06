@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+	<!-- gets header, nav bar and footer -->
+	{% extends 'header.html' %}
+	{% block content %}
+		<h1>{{title}}</h1>
+		<p>
+			<figure>
+				<img class="halfImg" src="../static/kingsbridgeMap.jpg" alt="Kingsbridge Map">
+				<figcaption>Map of Kingsbridge</figcaption>
+			</figure>
+			From surfing to vineyards, there’s lots to see and do in the Kingsbridge area. The estuary provides plenty of opportunities if you’re a water sports enthusiast, while the town has a thriving arts and crafts community for the more laid back visitor. Coast or countryside, Kingsbridge has a choice of scenic walking and hiking routes suitable for every level of ability.
+			Kingsbridge is a vibrant town, with a varied selection of shops, cafes, restaurants and pubs open all year. The major crowd pulling events in town are the Food and Music Festival, held in June and Fair Week in July.					
+		</p>
+		<p>
+			Twice a month a Farmers Market is held in the town, giving you the chance to pick over freshly, locally grown produce with not a cellophane wrapper in sight.<br>
+			If you want to catch a film check out the independent Reel Cinema in the town. Behind the old-fashioned façade you’ll find 3 screens, multiplex seating and the chance to see blockbusters alongside something a little more avant-garde.
+		</p>
+		<h3>An Island of Adventure</h3>
+		<p>
+			The area is popular with walkers and water sports enthusiasts. Close by is Bigbury beach, where at low tide you can walk across the sand to Burgh Island, the setting for the Agatha Christie novel ‘Evil under the Sun’. At high tide a sea tractor can take you across – a trip not to be missed, and especially popular with young children, which gives you the perfect excuse to stay on the island a little longer by sampling the hospitality offered at The Pilchard Inn. The beaches here are also a magnet for surfers, with lessons and board hire available for all abilities.
+		</p>
+		<h3>Fantastic local produce on the doorstep</h3>
+		<p>
+			If plants and gardens are more your thing then pop over to Fast Rabbit Farm and Gardens. Set in 30 acres of the Strawberry Valley, it offers good accessibility and the chance to pick up a floral reminder of the day in the attached plant shop.<br>
+			Nearby Aune Valley Meat is an award winning butchers, deli and farm shop. If you’re giving yourself the day off cooking then enjoy their wares at their café – their ‘butchers breakfast’ is a great way to prepare for a day exploring.
+		</p>
+		<h2>Shops</h2>
+		<p>
+			For a small town, Kingsbridge has a wide range of shops including bookshops, charity shops, antique shops, clothes shops, gift and craft shops and a Tescos superstore.<br>
+			There are also two petrol stations (Kingsbridge's Co-op and a 24hr Texaco) in Kingsbridge and several car repair companies should your car develop a fault during your stay.
+		</p>
+		<h2>Restaurants and Cafes</h2>
+		<!-- table of restaurants and cafes -->
+		<table>
+			<tr>
+				<th>The Tower Inn</th>
+				<td>
+					Tucked away in the heart of beautiful Slapton village, we are hidden in the shadow of a 14th century tower, all that remains of the former ecclesiastical college that once stood there.
+				</td>
+				<td>
+					Slapton Kingsbridge<br>
+					TQ7 2PN<br>
+					Tel: 01548 580216<br>
+					<a href="http://www.thetowerinn.com/" target="_blank"> Visit Website</a>
+				</td>
+			</tr>
+			<tr>
+				<th>California Country Inn</th>
+				<td>
+					Without doubt, one of the South Hams most famous hostelries, The California Inn is a delightful 14th Century family run free house serving fine real ales and exceptional food.
+				</td>
+				<td>
+					California Cross<br>
+					Kingsbridge<br>
+					PL21 0SG<br>
+					Tel: 01548 821449<br> 
+					<a href="http://www.californiacountryinn.co.uk/" target="_blank"> Visit Website</a>
+				</td>
+			</tr>
+			<tr>
+				<th>The Munchybox Cafe</th>
+				<td>
+					Tasty day time cafe restaurant tucked away in the Anchor Centre at the Bottom of Kingsbridge High Street. Serving great breakfasts along side home cooked lunches and mid morning or afternoon snacks. 
+				</td>
+				<td>
+					9 The Anchor Centre<br>
+					Bridge Street Kingsbridge<br>
+					TQ7 1SB<br>
+					Tel: 01548 852341<br> 
+				</td>
+			</tr>
+			<tr>
+				<th>Salaam Namaste</th>
+				<td>
+					Fantstic Indian and Bangladeshi cuisine in the heart of Kingsbridge. Salaam Namaste in Kingsbridge has many of your popular favourites and is under new management. 
+				</td>
+				<td>
+					lbert Road Kingsbridge<br>
+					TQ7 1EB<br>
+					Tel: 01548 854893
+				</td>
+			</tr>
+		</table>
+		<h2>Distances to local towns</h2>
+		<img src="../static/distanceKingsbridge.gif" alt="Distances to other towns and villages">
+		<p>
+			Local towns and villages also have a lot to offer:<br>
+			<!-- list of local attractions -->
+			<ul>
+				<li>Overbecks Museum and Garden is found in Salcombe</li>
+				<li>Bigbury on sea beach in Modbury</li>
+				<li>Woodlands leisure park in Dartmouth</li>
+				<li>Sea kayaking in Dartmouth</li>
+				<li>Blackpool Sands in Dartmouth</li>
+				<li>Totnes castle in Totnes</li>
+			</ul>
+		</p>
+	{% endblock %}
+</html>

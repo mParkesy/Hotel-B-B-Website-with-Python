@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+	<!-- gets header, nav bar and footer -->
+	{% extends 'header.html' %}
+	{% block content %}
+		<script>
+			$( document ).ready(function() {	
+				var imgNo = 1;
+				
+				function createSlider(){ //seperates image slides for the gallery
+					var gImg = $('#container img');
+					var imgWidth = gImg.width();
+					for(i = 1; i < gImg.length; i++){
+						$('#slides :nth-child(' + i + ')').css('margin-left', imgWidth*(i) + 'px');
+					}
+					$('#counter').text('Image ' + imgNo + ' of ' + gImg.length);
+					$('#prev').hide();
+				}
+				createSlider();
+				
+				var gImg = $('#gallery img');
+				var gWidth = gImg.width(); //gets width of gallery images
+				
+				function changeSlide(offset){ // function to move to next or previous slide
+					if(slideOffset + offset <= gWidth*(gImg.length-1) && slideOffset + offset>=0){ //disallows the gallery to slide into blank space
+						slideOffset += offset;
+						if(offset < 0)//updates image number on gallery
+							imgNo --;
+						else
+							imgNo ++;
+						$('#counter').text('Image ' + imgNo + ' of ' + gImg.length);
+						$('#slides').css('transform', 'translateX(' + -slideOffset + 'px)');
+						//hides next and back buttons if the end or start of the gallery are reached
+						if(slideOffset == 0)
+							$('#prev').fadeOut();
+						else if(slideOffset == gWidth*(gImg.length-1))
+							$('#next').fadeOut();
+						else
+							$('#button_container button').fadeIn();
+					}
+					
+				}
+				var slideOffset = 0;
+				
+				$('#next').click(function(){
+					changeSlide(gWidth);//goes to next slide
+				});
+				$('#prev').click(function(){
+					changeSlide(-gWidth);//goes to previous slide
+				});
+				
+				
+				});
+		</script>
+		<!-- gallery -->
+		<section id="gallery">
+			<h1>{{ title}}</h1>
+			<div id="container">
+				
+				<p id="counter"></p>
+				<div id="slides">
+					<img src="../static/gallery/inside1.jpg" alt="Kitchen">
+					<img src="../static/gallery/inside2.jpg" alt="Living Room">
+					<img src="../static/gallery/inside3.jpg" alt="Master Bedroom">
+					<img src="../static/gallery/inside4.jpg" alt="Double Bedroom">
+					<img src="../static/gallery/inside5.jpg" alt="Twin Single Bedroom">
+					<img src="../static/gallery/inside6.jpg" alt="Bathroom 1">
+					<img src="../static/gallery/inside7.jpg" alt="Bathroom 2">
+					<img src="../static/gallery/outside.jpg" alt="View from above">
+					<img src="../static/gallery/outside2.jpg" alt="View from the side">
+				</div>
+				
+			</div>
+		</section>
+		<div id="button_container">
+			<button id="prev">Prev</button>
+			<button id="next">Next</button>
+			
+		</div>
+		</div>
+	{% endblock %}
+</html>

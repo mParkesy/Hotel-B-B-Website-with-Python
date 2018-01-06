@@ -1,0 +1,117 @@
+<!-- template document -->
+<!DOCTYPE html>
+	<head>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+		<script>
+			$( document ).ready(function() {
+				var d = new Date();
+				var month = d.getMonth() + 1;
+				var year = d.getFullYear();
+				
+				//sets default arguments for booking page
+				$('#booking').attr('href','booking?month=' + month + '&year=' + year)
+			
+				$(window).scroll(function(){
+					if($(window).width() > 959){
+						var height = $(window).scrollTop();
+						if(height > $('#logo').height()){
+							$('#nav_bar').addClass('fixed');
+							$('#main').css('padding-top','57px');
+						}
+						else{
+							$('#nav_bar').removeClass('fixed');
+							$('#main').css('padding-top','12px');
+						}
+					}
+				});
+				$('#burger').click(function(){
+					$('body').addClass('body_margin');
+					$('#nav_container').addClass('nav_margin');
+					$('#cinema').fadeIn();
+				});
+				$('#cinema').click(function(){
+					$('body').removeClass('body_margin');
+					$('#nav_container').removeClass('nav_margin');
+					$("#logindiv").fadeOut();
+					$('#cinema').fadeOut();
+				});
+
+				$("#onclick").click(function() {
+					$("#logindiv").fadeIn();
+					$('#cinema').fadeIn();
+				});
+				
+				$(".popupclose").click(function() {
+					$("#logindiv").fadeOut();
+					$('#cinema').fadeOut();
+				});
+			});
+		</script>
+	</head>
+	<body>	
+		<!-- cinema div for mobile layout -->
+		<div id="cinema"></div>	
+		<div id="logo">
+			<div id="img_container">
+				<a href="/"><img src="../static/logo.png" alt="Logo"></a>
+			</div>
+		</div>
+		<div id="nav_bar">
+			<img id="burger" src="../static/threelines.png" alt="Mobile Menu Button">
+			<img id="logo_small" src="../static/logo_small.png" alt="Smaller Logo">
+			<div id="nav_container">
+				<nav>
+					<a href="\">Home</a>
+					<a href="\gallery">Gallery</a>
+					<a href="\where">Where to find us</a>
+					<div class="dropNav">
+						<a href="\kingsbridge">Kingsbridge</a>
+						<div class="dropNav-content">
+							<a href="\kingsbridge">About Kingsbridge</a>
+							<a href="\places">Places to go</a>
+					  </div>
+					</div>
+					<a id="booking" href="">Bookings</a>
+					<a href="\contact">Contact</a>
+					<a href="\reviews">Reviews</a>
+					<!-- if admin is logged in, display extra nav link -->
+					{% if session['username'] == "admin" %}
+						<div class="dropNav">
+							<a href="\admin">Admin</a>
+							<div class="dropNav-content">
+								<a href="\admin">Admin Page</a>
+								<a href="\logout">Logout</a>
+							</div>
+						</div>
+					{% endif %}
+				</nav>
+			</div>
+		</div>
+		<div id="main">
+			{% block content %}
+			{% endblock %}
+		</div>
+		<footer>
+			<img class="trip" src="../static/tripAd.png" alt="Trip Advisor">
+			<br>
+			<button id="onclick">Admin Login</button>
+			
+		</footer>
+		<!-- admin login which pops up when button is pressed -->
+		<div id="logindiv">
+			<form action ="login" method = "POST" ><br>
+				<div class="imgcontainer">
+					<span class="popupclose" title="Close">&times;</span>
+					<img class="avatar" src="../static/avatar.png" alt="Avatar">
+					<h2>Admin Login</h2>
+				</div>
+				<div class="content">
+					<input type="text" name="username" placeholder=" Username..." required>
+					<input type="password" name="password" placeholder=" Password..." required>
+					<button class="login" type="submit">Login</button>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>

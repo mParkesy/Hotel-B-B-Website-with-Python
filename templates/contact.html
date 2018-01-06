@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+	<!-- gets header, nav bar and footer -->
+	{% extends 'header.html' %}
+	{% block content %}
+		<h1>{{title}}</h1>
+		<!-- table that shows contact details -->
+		<table>
+			<tr>
+				<th>Our address</th>
+				<td>
+					Matthews Cottage,<br>
+					Thorley Street,<br>
+					Kingsbridge,<br>
+					TQ7 6HG <br>
+					<a href="/where">Directions and Map ></a>
+				</td>
+			</tr>
+			<tr>
+				<th>Telephone</th>
+				<td>
+					01279 616717
+				</td>
+			</tr>
+			<tr>
+				<th>Office Hours</th>
+				<td>								
+					Monday - Friday 9am to 8pm<br>
+					Saturday 9am to 5pm<br>
+					Sunday 10am to 5pm<br><br>
+					We are closed from the 24th to 26th of December and on the 1st January, 16th April, and the 17th April.
+				</td>
+			</tr>
+		</table>
+		<h2>Contact Form</h2>
+		<p>
+			We aim to reply to your messages within 24 hours.<br>
+			Please use this form for enquiries or questions.<br>
+		</p>
+		<!-- a contact form that allows the user to send a message to the owner of the property -->
+		<form name="contact" action="contactForm" method="post">
+			<input name="name" type="text" maxlength="30" size="20"
+			placeholder="Please enter your name..." required/>
+			<br>
+			<input type="text" name="email" placeholder="Plesae enter your email address..." maxlength="30" size="30" required>
+			<br>
+			<textarea name="message" rows="10" maxlength="200" placeholder="Please enter your message..." required></textarea>
+			<br>
+			<input type="reset" value="Reset">
+			<input type="submit" value="Submit">
+		</form>
+		
+		<div class="homeImg">
+			<img alt="Wildland Cottage from the stream" src="../static/devon.jpg"/>
+		</div>	
+	{% endblock %}
+</html>

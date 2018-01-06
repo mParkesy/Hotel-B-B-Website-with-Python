@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+	<!-- gets header, nav bar and footer -->
+	{% extends 'header.html' %}
+	{% block content %}
+		<!-- check to see whether admin is logged in -->
+		{% if session['username'] == "admin" %}
+			<h1>{{title}}</h1>
+			<!-- table to display bookings -->
+			<table>
+				<tr>
+					<td>
+						Firstname
+					</td>
+					<td>
+						Lastname
+					</td>
+					<td>
+						Email
+					</td>
+					<td>
+						Phone Number
+					</td>
+					<td>
+						Adults
+					</td>
+					<td>
+						Children
+					</td>
+					<td>
+						Arrival Date
+					</td>
+					<td>
+						Nights
+					</td>
+				</tr>
+				<!-- go through each row of the list -->
+				{% for line in bookingList %}
+					<tr>
+						<!-- declare a counter variable for outer for loop -->
+						{% set rowloop = loop %}
+						<!-- go through each element of a row -->
+						{% for i in range(0,9)%}
+							<td>
+								<!-- display a button if the 8th element is zero -->
+								{% if i == 8 and line[i]=='0' %}
+									<form action="\confirmBooking" method="POST">
+										<input type="hidden" name="line" value="{{rowloop.index0}}">
+										<input type="submit" value="Confirm Booking">
+									</form>
+								<!-- if 8th element is a 1 then state confirmed -->	
+								{% elif i == 8 and line[i]=='1' %}
+									Confirmed
+								<!-- display element -->
+								{% else %}
+									{{line[i]}}
+								{% endif %}
+							</td>
+						{% endfor %}
+					</tr>
+				{% endfor %}
+			</table>
+		<!-- if the admin page is accessed or the admin gets the password wrong display message -->
+		{% else %}	
+			<h1>Access Denied</h1>
+			<p>Please try logging in with the correct details.</p>
+			<button id="onclick">Admin Login</button>
+		{% endif %}
+	{% endblock %}
+</html>

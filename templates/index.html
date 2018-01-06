@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+	<!-- gets header, nav bar and footer -->
+	{% extends 'header.html' %}
+
+	{% block content %}
+		<div class="homeImg">
+			<img alt="Wildland Cottage from the stream" src="../static/riverCottage.jpg"/>
+		</div>
+		<h1>{{title}}</h1>
+		<p>
+			We are a young couple who purchased Wildland cottage in 2001. We moved to Kingsbridge to get away from the city life of London which was expensive and crowded. We both took a year out of working to renovate the cottage making it modern, yet still leaving some of the cottage like feel. We lived in the cottage for 10 years during which we had two children who loved the cottage and enjoyed the small stream which connected to Bowcombe Creek.
+		</p>
+		<p>
+			The cottage has the following:
+			<!-- List of features the cottage has -->
+			<ul>
+				<li>A master bedroom on the third floor</li>
+				<li>A standard double bedroom</li>
+				<li>A twin bedroom which has two singles</li>
+				<li>A downstairs bathroom</li>
+				<li>An upstairs bathroom with old style bath tub</li>
+				<li>A large kitchen with dining area and small living area attached</li>
+				<li>A large living room with large corner sofa, fire place and 43inch TV</li>
+				<li>A small living/quiet study area</li>
+			</ul>
+		</p>
+		<p>
+			In 2011, after spending more time updating the kitchen and two bathrooms, we decided to move to a larger home on the other side of Kingsbridge.
+			The rooms were restored to their homely cottage feel, and a larger wood burning stove which connects to the central heating was also installed in the large living room. Due to a surplus of fire wood in the area, we made sure that fire wood was always free and easy to access for visitors to the cottage. We also built a boat storage shed next to the stream, and provide those that hire the cottage, canoes and other equipment.<br>
+			With the cottage now being over one hundred years old, deciding to hire the cottage out to people was the best decision we made, as it now allows people to have the experience of living in such an old but beautiful home.	
+		</p>
+		<div class="homeImg">
+			<img alt="Wildland Cottage from the stream" src="../static/cottageInside.jpg"/>
+		</div>
+	{% endblock %}
+</html>
